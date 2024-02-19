@@ -1,0 +1,443 @@
+:root {
+  --primary-color: #212121;
+  --background-color: #111;
+  --font: Agency FB;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  
+  background: var(--background-color);
+  font-family: var(--font);
+  display: flex;
+  justify-content: center;
+  
+  background-image: url("https://images5.alphacoders.com/133/1338583.png");
+  background-size: cover;
+}
+
+/* Card container */
+.card {
+  position: relative;
+  max-width: 900px;
+}
+
+/* setting padding based on even or odd */
+.card:nth-child(odd) {
+  padding: 30px 0 30px 30px;
+}
+
+.card:nth-child(even) {
+  padding: 30px 30px 30px 0;
+}
+
+/* Global ::before */
+.card::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  border: solid #6A82FB;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  width: 50%;
+}
+
+/* Setting the border of top, bottom, left */
+.card:nth-child(odd)::before {
+  left: 0px;
+  top: -4.5px;
+  bottom: -4.5px;
+  
+  background: transparent;
+  border-width: 5px 0 5px 5px;
+  border-radius: 100px 0 0 100px;
+  
+  /*box-shadow: 0px 0px 20px #6A82FB;*/
+}
+
+/* Setting the top and bottom to "-5px" because earlier it was out of a pixel in mobile devices 
+@media only screen and (max-width: 400px) {
+  .card:nth-child(odd)::before {
+    top: -5px;
+    bottom: -5px;
+  }
+}*/
+
+/* Setting the border of top, bottom, right */
+.card:nth-child(even)::before {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-width: 5px 5px 5px 0;
+  border-radius: 0 100px 100px 0;
+
+  /*box-shadow: 0px 0px 20px #6A82FB;*/
+}
+
+/* Removing the border if it is the first card */
+.card:first-child::before {
+  border-top: 0;
+  border-top-left-radius: 0;
+}
+
+/* Removing the border if it is the last card  and it's odd */
+.card:last-child:nth-child(odd)::before {
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Removing the border if it is the last card  and it's even */
+.card:last-child:nth-child(even)::before {
+  border-bottom: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Information about the timeline */
+.info {
+  display: flex;
+  flex-direction: column;
+  background: #333;
+  color: gray;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.outer {
+  padding: 100px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin: 0px;
+  
+  background: rgba(33, 33, 33, 0.75);
+  backdrop-filter: blur(20px);
+  mask-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%);
+}
+
+.timeline-tile {
+  display: flex;
+  flex-direction: column;
+  color: whitesmoke;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 5vw;
+}
+
+/* Title of the card */
+.title {
+  color: orangered;
+  position: relative;
+}
+
+/* Timeline dot  */
+.title::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 999px;
+  border: 3px solid orangered;
+}
+
+point {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--background-color);
+  border-radius: 999px;
+  border: 5px solid #6A82FB;
+  box-shadow: 0px 0px 20px #6A82FB;
+}
+
+point.right {
+  left: 98%;
+}
+
+point.left {
+  right: 98%;
+}
+
+/* text right if the card is even  */
+.card:nth-child(even)>.info>.title {
+  text-align: right;
+}
+
+/* setting dot to the left if the card is odd */
+.card:nth-child(odd)>.info>.title::before {
+  left: -45px;
+}
+
+/* setting dot to the right if the card is odd */
+.card:nth-child(even)>.info>.title::before {
+  right: -45px;
+}
+
+.disruptor {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  left: 10%;
+  width: 75%;
+  height: 150px;
+  background-color: #222;
+  box-shadow: 0px 0px 10px 5px #6A82FB;
+  border-radius: 20px;
+  margin-top: -75px;
+  margin-bottom: -75px;
+  z-index: 1;
+}
+
+.slide {
+  position: relative;
+  width: 34%;
+  height: 100%;
+  border: #333;
+
+  overflow: hidden;
+  transition: 0.5s ease;
+
+  &:before,
+  &:after {
+    transform: translate3d(0, 0, 0);
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &:after {
+    background: transparentize(#031625, 0.15);
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+
+  &:before {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 75%);
+    z-index: 1;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) translateY(50%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  &:hover,
+  &:focus {
+    width: 70%;
+
+    &:after {
+      opacity: 0;
+    }
+
+    &:before {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) translateY(0);
+      transition: opacity 1s ease, transform 1s ease 0.25s;
+    }
+
+    .slide-image {
+      filter: grayscale(0);
+    }
+  }
+}
+
+.slide-image {
+  transform: translate3d(0, 0, 0);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center center;
+  transition: filter 0.5s ease;
+  filter: grayscale(100%);
+}
+
+.date {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-shadow: 0px 0px 20px black;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 1;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  color: #fff;
+  font-family: "Agency FB";
+  font-size: 30px;
+}
+
+
+
+
+
+
+
+
+.gallery-item-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-shadow: 0px 0px 20px black;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 1;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  color: #fff;
+  font-family: "Agency FB";
+  font-size: 30px;
+  transition: top 0.5s ease, left 0.5s ease, font-size 0.25s ease;
+  pointer-events: none;
+
+}
+
+.gallery-item-content {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  width: calc(var(--size) * 3);
+  opacity: 0;
+  text-shadow: 0px 0px 10px 5px black;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 2;
+  border-top: 2px solid #999;
+  color: #fff;
+  font-family: "Agency FB";
+  font-size: 20px;
+  transition: top 1s ease, font-size 0.25s ease, opacity 0.1s ease-in;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+  padding: 5px;
+}
+
+.gallery-item-content-title {
+  border-top: 0px solid #999;
+  font-size: 30px;
+}
+
+
+.gallery-content-square {
+  display: block;
+  position: relative;
+  width: calc(var(--size) * 4);
+  height: calc(var(--size) * 4);
+  grid-column: auto / span 2;
+  &:nth-of-type(5n - 1) {
+    grid-column: 2 / span 2
+  }
+  
+}
+
+.gallery-content-triangle {
+  display: block;
+  position: relative;
+  width: calc(var(--size) * 4);
+  height: calc(var(--size) * 4);
+  grid-column: auto / span 1;
+  &:nth-of-type(2n + 1) img {
+    clip-path: path("M 220 260 C 200 300 200 300 180 260 L 120 140 C 100 100 100 100 140 100 L 260 100 C 300 100 300 100 280 140 Z");
+  }
+  &:hover:nth-child(2n + 1) img,
+  &:focus:nth-child(2n + 1) img {
+    clip-path: path("M 240 320 C 200 400 200 400 160 320 L 40 80 C -0 0 -0 0 80 0 L 320 -0 C 400 -0 400 -0 360 80 Z");
+  }
+}
+
+.gallery {
+  --size: 100px;
+  display: grid;
+  grid-auto-rows: calc(var(--size) * 1.5);
+  place-items: start center;
+  gap: 5px;
+  margin-bottom: calc(var(--size) * 3.5);
+
+  & img {
+    position: absolute;
+    object-fit: cover;
+    width: calc(var(--size) * 4);
+    height: calc(var(--size) * 4);
+    transition: clip-path 0.25s, filter 0.75s;
+    border-radius: 5px;
+  }
+}
+
+.square {
+  
+  grid-template-columns: repeat(6, calc(var(--size) * 1.5));
+  & img {
+    clip-path: path("M 73 214 Q 59 200 73 186 L 186 73 Q 200 59 214 73 L 327 186 Q 341 200 327 214 L 214 327 Q 200 341 186 327 Z");
+  }
+  & img:hover,
+  & img:focus {
+    z-index: 2;
+    transition: clip-path 0.25s, filter 0.25s;
+    clip-path: path("M 0 40 Q 0 0 40 0 L 360 0 Q 400 0 400 40 L 400 360 Q 400 400 360 400 L 40 400 Q 0 400 0 360 Z");
+  }
+  & img:hover ~ .gallery-item-title,
+  & img:focus ~ .gallery-item-title {
+    top: 10%;
+    left: 20%;
+    z-index: 3;
+    font-size: 40px;
+  }
+
+  & img:hover ~ .gallery-item-content,
+  & img:focus ~ .gallery-item-content {
+    top: 70%;
+    z-index: 3;
+    opacity: 1;
+    transition: top 1s ease, opacity 1s ease;
+  }
+
+  & img:hover ~ .gallery-item-content-title,
+  & img:focus ~ .gallery-item-content-title {
+    top: 50%;
+    z-index: 3;
+    opacity: 1;
+    transition: top 1s ease, opacity 1s ease;
+  }
+  
+}
+
+.triangle {
+  grid-template-columns: repeat(5, calc(var(--size) * 1.5));
+  margin-bottom: calc(var(--size) * 2);
+  margin-left: 30px;
+
+  & img {
+    clip-path: path("M 180 140 C 200 100 200 100 220 140 L 280 260 C 300 300 300 300 260 300 L 140 300 C 100 300 100 300 120 260 Z");
+
+    &:hover,
+    &:focus {
+      
+      z-index: 2;
+      clip-path: path("M 160 80 C 200 0 200 0 240 80 L 360 320 C 400 400 400 400 320 400 L 80 400 C 0 400 0 400 40 320 Z");
+    }
+  }
+
+  & img:hover ~ .gallery-item-title,
+  & img:focus ~ .gallery-item-title {
+    top: 10%;
+    left: 20%;
+    z-index: 3;
+    font-size: 40px;
+  }
+
+  & img:hover ~ .gallery-item-content,
+  & img:focus ~ .gallery-item-content {
+    top: 70%;
+    z-index: 3;
+    opacity: 1;
+    transition: top 1s ease, opacity 1s ease;
+  }
+}
